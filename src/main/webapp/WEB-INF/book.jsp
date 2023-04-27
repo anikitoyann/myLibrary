@@ -43,7 +43,7 @@
     </tr>
     <%} %>
     <%} %>
-    <form action="/searchBook" method="post">
+    <form action="/searchBook?>" method="post">
         Searching <input name="search" type="text">
         <input type="submit" value="search"></form>
 </table>

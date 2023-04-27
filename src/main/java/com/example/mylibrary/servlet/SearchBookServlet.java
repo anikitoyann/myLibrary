@@ -20,15 +20,13 @@ public class SearchBookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
         List<Book> bookList = bookManager.getAllByBookName(title);
-        List<Book> matchingBooks = new ArrayList<>();
-
+        List<Book> books = new ArrayList<>();
         for (Book book : bookList) {
             if (book.getTitle().contains(title)) {
-                matchingBooks.add(book);
+                books.add(book);
             }
         }
-
-        req.setAttribute("allBookName", matchingBooks);
+        req.setAttribute("allBookName", books);
         req.getRequestDispatcher("WEB-INF/search.jsp").forward(req, resp);
     }
 }
