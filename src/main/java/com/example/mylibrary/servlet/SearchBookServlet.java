@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/searchBook")
@@ -17,10 +18,17 @@ public class SearchBookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String title=req.getParameter("title");
-        List<Book> allBookName = bookManager.getAllByBookName(title);
-        req.setAttribute("allBookName",allBookName);
-        req.getRequestDispatcher("WEB-INF/search.jsp").forward(req,resp);
-        resp.sendRedirect("/books");
+        String title = req.getParameter("title");
+        List<Book> bookList = bookManager.getAllByBookName(title);
+        List<Book> matchingBooks = new ArrayList<>();
+
+        for (Book book : bookList) {
+            if (book.getTitle().contains(title)) {
+                matchingBooks.add(book);
+            }
+        }
+
+        req.setAttribute("allBookName", matchingBooks);
+        req.getRequestDispatcher("WEB-INF/search.jsp").forward(req, resp);
     }
 }
