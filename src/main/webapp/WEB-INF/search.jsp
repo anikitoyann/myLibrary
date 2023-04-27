@@ -10,7 +10,7 @@
 <h1>Search Results</h1>
 <ul>
     <% for (Book book : (List<Book>) request.getAttribute("allBookName")) { %>
-    <li><%= book.getTitle() %></li>
+    <li><%= book.getTitle()%></li>
     <% } %>
 </ul>
 
