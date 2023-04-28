@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
+
+
+
 @WebFilter(urlPatterns ={"/home","/authors","/books"} )
 public class AuthFilter implements Filter {
     @Override
