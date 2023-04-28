@@ -9,7 +9,7 @@
 <% List<Book> books = (List<Book>) request.getAttribute("searchResults");
     String searchedTitle = request.getParameter("title");
 %>
-
+<a href="/books" >Back</a>
 <table border="1">
     <tr>
         <th>id</th>

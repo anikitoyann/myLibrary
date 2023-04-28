@@ -5,7 +5,7 @@
 <head>
     <title>Create Book</title>
 </head>
-<body>
+<body style="background-color:snow">
 <a href="/">Back</a>
 <h2>Create Books</h2>
 <% List<Author> authors = (List<Author>) request.getAttribute("authors");%>

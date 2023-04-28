@@ -4,7 +4,7 @@
 <head>
     <title>Create Author</title>
 </head>
-<body>
+<body style="background-color: snow">
 <a href="/">Back</a>
 <h2>Create Author</h2>
 <form action="/createAuthor" method="post">
