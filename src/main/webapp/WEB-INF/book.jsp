@@ -11,7 +11,7 @@
     User user = (User) session.getAttribute("user");
 %>
 
-<body style="background-color: snow">
+<body style=background-color:snow>
 <a href="/">Back</a>
 <H2 style="font-family: 'Arial Black'">Books</H2>
 <table border="1">
