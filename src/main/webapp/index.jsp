@@ -4,7 +4,7 @@
 <head>
     <title>Main Page</title>
 </head>
-<body style="background-color: snow">
+<body style="background-color: snow" >
 <%if (session.getAttribute("user") != null) {
     response.sendRedirect("/home");}
     String msg = (String) session.getAttribute("msg");
