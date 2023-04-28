@@ -58,8 +58,9 @@ public class BookManager {
 
     public List<Book> getAllByBookName(String title) {
         List<Book> books = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * from book where title=" + title);
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM book WHERE title = ?")) {
+            statement.setString(1, title);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 books.add(getBookFromResultSet(resultSet));
             }

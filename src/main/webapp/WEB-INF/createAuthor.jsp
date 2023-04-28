@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create Company</title>
+    <title>Create Author</title>
 </head>
 <body>
 <a href="/">Back</a>
-<h2>Create Company</h2>
+<h2>Create Author</h2>
 <form action="/createAuthor" method="post">
     name<input type="text" name="name"><br>
     surname<input type="text" name="surname"><br>

@@ -1,22 +1,41 @@
-
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.mylibrary.model.Book" %>
 <html>
 <head>
-    <head>
-        <title>Search Results</title>
-    </head>
+    <title>Search Results</title>
+</head>
 <body>
 <h1>Search Results</h1>
-<ul>
-    <% for (Book book : (List<Book>) request.getAttribute("allBookName")) { %>
-    <li><%= book.getTitle()%></li>
-    <% } %>
-</ul>
+<% List<Book> books = (List<Book>) request.getAttribute("searchResults");
+    String searchedTitle = request.getParameter("searchResults");
+%>
 
-<% if (((List<Book>) request.getAttribute("allBookName")).isEmpty()) { %>
-<p>No books found.</p>
-<% } %>
+<table border="1">
+    <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>description</th>
+        <th>price</th>
+        <th>author_id</th>
+    </tr>
+    <% for (Book book : books) {
+        if (book.getTitle().contains(searchedTitle)) {
+    %>
+    <tr>
+        <td><%= book.getId() %></td>
+        <td><%= book.getTitle() %></td>
+        <td><%= book.getDescription() %></td>
+        <td><%= book.getPrice() %></td>
+        <td><%= book.getAuthor().getId() %></td>
+    </tr>
+    <%     }
+    }
+        if (books.isEmpty()) {
+    %>
+    <tr>
+        <td colspan="5">No books found.</td>
+    </tr>
+    <% } %>
+</table>
 </body>
 </html>
-
