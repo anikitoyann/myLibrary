@@ -12,14 +12,16 @@ import java.util.List;
 public class BookManager {
     private Connection connection = DBConnectionProvider.getInstance().getConnection();
     AuthorManager authorManager=new AuthorManager();
+    UserManager userManager=new UserManager();
     public void save(Book book) {
-            String sql = "INSERT INTO book(title,description,price,pic_name,author_id) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO book(title,description,price,pic_name,author_id,user_id) VALUES(?,?,?,?,?,?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, book.getTitle());
                 ps.setString(2, book.getDescription());
                 ps.setInt(3,book.getPrice());
                 ps.setString(4, book.getPicName());
                 ps.setInt(5,book.getAuthor().getId());
+                ps.setInt(6,book.getUser().getId());
                 ps.executeUpdate();
                 ResultSet generatedKeys = ps.getGeneratedKeys();
                 if (generatedKeys.next()) {
@@ -91,13 +93,15 @@ public class BookManager {
         book.setPicName(resultSet.getString("pic_name"));
         int authorId =resultSet.getInt("author_id");
         book.setAuthor(authorManager.getById(authorId));
+        int userId=resultSet.getInt("user_id");
+        book.setUser(userManager.getById(userId));
         return book;
     }
     public List<Book> getBooksByUser(User user) {
         List<Book> userBooks = new ArrayList<>();
-        String sql = "SELECT * FROM book WHERE user_type = ?";
+        String sql = "SELECT * FROM book WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, String.valueOf(user.getUserType()));
+            preparedStatement.setInt(1, user.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Book book = getBookFromResultSet(resultSet);
@@ -110,13 +114,14 @@ public class BookManager {
     }
 
         public void update(Book book) {
-        String sql = "UPDATE book SET title=?,description=?,price=?,author_id=? WHERE id=?";
+        String sql = "UPDATE book SET title=?,description=?,price=?,author_id=?,user_id=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,book.getTitle());
             statement.setString(2, book.getDescription());
             statement.setInt(3,book.getPrice());
             statement.setInt(4,book.getAuthor().getId());
-            statement.setInt(5,book.getId());
+            statement.setInt(5,book.getUser().getId());
+            statement.setInt(6,book.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

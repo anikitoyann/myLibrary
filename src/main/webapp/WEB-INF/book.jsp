@@ -1,4 +1,3 @@
-
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.mylibrary.model.User" %>
 <%@ page import="com.example.mylibrary.model.UserType" %>
@@ -24,6 +23,7 @@
         <th>description</th>
         <th>price</th>
         <th>author_id</th>
+        <th>user_id</th>
         <%if (user.getUserType()== UserType.ADMIN){%>
         <th>action</th>
         <%}%>
@@ -35,13 +35,15 @@
         <td><%if(book.getPicName()==null) {%>
             <img src="/img/defaultPic.png"width="50">
             <%} else {%>
-            <a href="/getImage?picName=<%=book.getPicName()%>"> <img src="/getImage?picName=<%=book.getPicName()%>"width="50"></a></td>
+            <a href="/getImage?picName=<%=book.getPicName()%>"> <img src="/getImage?picName=<%=book.getPicName()%>"width="50"></a>
+        </td>
             <%} %>
         <td><%=book.getId()%></td>
         <td><%=book.getTitle()%></td>
         <td><%=book.getDescription()%></td>
         <td><%=book.getPrice()%></td>
         <td><%=book.getAuthor().getId()%></td>
+        <th><%= (book.getUser() != null) ? book.getUser().getId() : "" %></th>
         <%if (user.getUserType()== UserType.ADMIN){%>
         <td><a href="/removeBook?id=<%=book.getId()%>">delete</a>
             / <a href="/updateBook?id=<%=book.getId()%>">update</a></td>
@@ -51,7 +53,7 @@
     <% } %>
             <% if (books.isEmpty()) { %>
     <tr>
-        <td colspan="5">No books found.</td>
+        <td colspan="7">No books found.</td>
     </tr>
     <%} %>
     </tr>
@@ -59,6 +61,5 @@
         Searching <input name="keyword" type="text"value="<%=keyword%>">
         <input type="submit" value="search"></form>
 </table>
-
 </body>
 </html>

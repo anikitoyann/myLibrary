@@ -1,6 +1,7 @@
 package com.example.mylibrary.manager;
 
 import com.example.mylibrary.db.DBConnectionProvider;
+import com.example.mylibrary.model.Book;
 import com.example.mylibrary.model.User;
 import com.example.mylibrary.model.UserType;
 
@@ -42,7 +43,31 @@ public class UserManager {
         }
         return null;
     }
-
+    public User getById(int id) {
+        String sql = "Select * from user where id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return getUserFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<User> getAll() {
+        List<User> books = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * from user");
+            while (resultSet.next()) {
+                books.add(getUserFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
 
     public User getByEmailAndPassword(String email, String password) {
         String sql = "Select * from user where email = ? AND password = ?";

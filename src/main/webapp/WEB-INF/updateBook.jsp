@@ -1,6 +1,7 @@
 <%@ page import="com.example.mylibrary.model.Author" %>
 <%@ page import="com.example.mylibrary.model.Book" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.mylibrary.model.User" %>
 <html>
 <head>
   <title>Update Book</title>
@@ -8,6 +9,7 @@
 <body>
 <% Book book= (Book)request.getAttribute("book");%>
 <% List<Author> authors = (List<Author>) request.getAttribute("authors");%>
+<% List<User> users = (List<User>) request.getAttribute("users");%>
 <a href="/">Back</a>
 <h2>Update Book</h2>
 <form action="/updateBook" method="post" >
@@ -20,7 +22,13 @@
   <% for (Author author : authors) { %>
   <option value="<%=author.getId()%>"><%=author.getName()%></option>
   <%}%>
-</select>
+</select><br>
+  user_id:
+  <select name="user_id">
+    <% for (User user :users){ %>
+    <option value="<%=user.getId()%>"><%=user.getName()%> <%=user.getId()%>></option>
+    <% }%>
+  </select><br>
   <input type="submit" value="Update">
 </form>
 

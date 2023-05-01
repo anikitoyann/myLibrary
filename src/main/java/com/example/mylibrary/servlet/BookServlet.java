@@ -21,20 +21,19 @@ public class BookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         List<Book> result = null;
-        if (user.getUserType() == UserType.ADMIN) {
+
+        if (user != null && user.getUserType() == UserType.ADMIN) {
             String keyword = req.getParameter("keyword");
             if (keyword == null || keyword.equals("")) {
                 result = bookManager.getAll();
             } else {
                 result = bookManager.search(keyword);
             }
-        } else {
+        } else if (user != null && user.getUserType() == UserType.USER) {
             result = bookManager.getBooksByUser(user);
         }
         req.setAttribute("books", result);
         req.getRequestDispatcher("WEB-INF/book.jsp").forward(req, resp);
     }
-
-
 }
 

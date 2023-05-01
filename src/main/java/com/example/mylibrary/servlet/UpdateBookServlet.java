@@ -2,8 +2,10 @@ package com.example.mylibrary.servlet;
 
 import com.example.mylibrary.manager.AuthorManager;
 import com.example.mylibrary.manager.BookManager;
+import com.example.mylibrary.manager.UserManager;
 import com.example.mylibrary.model.Author;
 import com.example.mylibrary.model.Book;
+import com.example.mylibrary.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +19,7 @@ import java.util.List;
 public class UpdateBookServlet extends HttpServlet {
     private BookManager bookManager=new BookManager();
     private AuthorManager authorManager=new AuthorManager();
+    private UserManager userManager=new UserManager();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Author> authors = authorManager.getAll();
@@ -24,6 +27,8 @@ public class UpdateBookServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Book book = bookManager.getById(id);
         req.setAttribute("book", book);
+        List<User> users = userManager.getAll();
+        req.setAttribute("users", users);
         req.getRequestDispatcher("WEB-INF/updateBook.jsp").forward(req, resp);
     }
 
@@ -34,12 +39,14 @@ public class UpdateBookServlet extends HttpServlet {
         String description = req.getParameter("description");
         int price = Integer.parseInt(req.getParameter("price"));
         int author_id = Integer.parseInt(req.getParameter("author_id"));
+        int user_id=Integer.parseInt(req.getParameter("user_id"));
         Book book=new Book();
         book.setId(id);
      book.setTitle(title);
      book.setDescription(description);
         book.setPrice(price);
         book.setAuthor(authorManager.getById(author_id));
+        book.setUser(userManager.getById(user_id));
         bookManager.update(book);
         resp.sendRedirect("/books");
     }
