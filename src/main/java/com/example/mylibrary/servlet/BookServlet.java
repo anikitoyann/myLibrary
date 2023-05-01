@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @WebServlet("/books")
 public class BookServlet extends HttpServlet {
@@ -33,5 +34,7 @@ public class BookServlet extends HttpServlet {
         req.setAttribute("books", result);
         req.getRequestDispatcher("WEB-INF/book.jsp").forward(req, resp);
     }
+
+
 }
 

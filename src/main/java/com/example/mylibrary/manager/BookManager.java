@@ -95,9 +95,9 @@ public class BookManager {
     }
     public List<Book> getBooksByUser(User user) {
         List<Book> userBooks = new ArrayList<>();
-        String sql = "SELECT * FROM book WHERE user_type = ?";
+        String sql = "SELECT * FROM book WHERE added_by_user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, String.valueOf(user.getUserType()));
+            preparedStatement.setInt(1, user.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Book book = getBookFromResultSet(resultSet);
