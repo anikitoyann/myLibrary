@@ -2,6 +2,8 @@ package com.example.mylibrary.servlet;
 
 import com.example.mylibrary.manager.BookManager;
 import com.example.mylibrary.model.Book;
+import com.example.mylibrary.model.User;
+import com.example.mylibrary.model.UserType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,23 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-
 @WebServlet("/books")
 public class BookServlet extends HttpServlet {
     BookManager bookManager = new BookManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String keyword = req.getParameter("keyword");
+        User user = (User) req.getSession().getAttribute("user");
         List<Book> result = null;
-        if (keyword == null || keyword.equals("") ) {
-            result = bookManager.getAll();
+        if (user.getUserType() == UserType.ADMIN) {
+            String keyword = req.getParameter("keyword");
+            if (keyword == null || keyword.equals("")) {
+                result = bookManager.getAll();
+            } else {
+                result = bookManager.search(keyword);
+            }
         } else {
-            result = bookManager.search(keyword);
+            result = bookManager.getBooksByUser(user);
         }
         req.setAttribute("books", result);
         req.getRequestDispatcher("WEB-INF/book.jsp").forward(req, resp);
-
     }
 }
 

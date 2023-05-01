@@ -28,7 +28,7 @@
         <th>action</th>
         <%}%>
     </tr>
-    <% if (books != null && !books.isEmpty()) { %>
+    <% if (books != null && !books.isEmpty())  { %>
     <%
         for (Book book : books) { %>
     <tr>
