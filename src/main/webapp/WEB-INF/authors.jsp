@@ -8,6 +8,7 @@
 </head>
 <% List<Author> authors = (List<Author>) request.getAttribute("authors");
   User user = (User) session.getAttribute("user");
+
 %>
 <body style="background-color: snow">
 <a href="/">Back</a>

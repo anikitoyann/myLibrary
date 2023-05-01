@@ -28,6 +28,7 @@ public class RegisterServlet extends HttpServlet {
                     .userType(UserType.valueOf(req.getParameter("type")))
                     .build());
         }
+
         resp.sendRedirect("/");
     }
 }

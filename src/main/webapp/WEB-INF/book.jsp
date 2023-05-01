@@ -9,14 +9,16 @@
 </head>
 <% List<Book> books = (List<Book>) request.getAttribute("books");
     User user = (User) session.getAttribute("user");
+    String keyword= request.getParameter("keyword")==null || !request.getParameter("keyword").equals(null)?
+            "": request.getParameter("keyword");
 %>
 
 <body style=background-color:snow>
 <a href="/">Back</a>
-
 <H2 style="font-family: 'Arial Black'">Books</H2>
 <table border="1">
     <tr>
+        <th>image</th>
         <th>id</th>
         <th>title</th>
         <th>description</th>
@@ -30,6 +32,11 @@
     <%
         for (Book book : books) { %>
     <tr>
+        <td><%if(book.getPicName()==null) {%>
+            <img src="/img/defaultPic.png"width="50">
+            <%} else {%>
+            <a href="/getImage?picName=<%=book.getPicName()%>"> <img src="/getImage?picName=<%=book.getPicName()%>"width="50"></a></td>
+            <%} %>
         <td><%=book.getId()%></td>
         <td><%=book.getTitle()%></td>
         <td><%=book.getDescription()%></td>
@@ -38,14 +45,18 @@
         <%if (user.getUserType()== UserType.ADMIN){%>
         <td><a href="/removeBook?id=<%=book.getId()%>">delete</a>
             / <a href="/updateBook?id=<%=book.getId()%>">update</a></td>
+            <%} %>
+            <%} %>
 
-
-        <%} %>
+    <% } %>
+            <% if (books.isEmpty()) { %>
+    <tr>
+        <td colspan="5">No books found.</td>
     </tr>
     <%} %>
-    <%} %>
-    <form action="/searchBook" method="post">
-        Searching <input name="title" type="text">
+    </tr>
+    <form action="/books" method="get">
+        Searching <input name="keyword" type="text"value="<%=keyword%>">
         <input type="submit" value="search"></form>
 </table>
 

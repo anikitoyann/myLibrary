@@ -13,6 +13,7 @@
     email<input type="text" name="email"><br>
     age<input type="text" name="age"><br>
     <input type="submit" value="Create">
+
 </form>
 </body>
 </html>

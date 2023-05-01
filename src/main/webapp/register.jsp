@@ -3,10 +3,8 @@
 <html>
 <head>
     <title>Register Page</title>
-
 </head>
-
-<body style="background-color: snow"> <img src="5ff60780efa9916f23afedf2350ed338.png"width="760" height="278"><br><br>
+<body style="background-color: snow">
 <% if (session.getAttribute("user") != null) {
     response.sendRedirect("/home");
 }%>

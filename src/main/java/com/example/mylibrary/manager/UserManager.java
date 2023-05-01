@@ -5,6 +5,8 @@ import com.example.mylibrary.model.User;
 import com.example.mylibrary.model.UserType;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager {
     private Connection connection = DBConnectionProvider.getInstance().getConnection();
@@ -40,6 +42,7 @@ public class UserManager {
         }
         return null;
     }
+
 
     public User getByEmailAndPassword(String email, String password) {
         String sql = "Select * from user where email = ? AND password = ?";

@@ -9,7 +9,7 @@
 <a href="/">Back</a>
 <h2>Create Books</h2>
 <% List<Author> authors = (List<Author>) request.getAttribute("authors");%>
-<form action="/createBook" method="post">
+<form action="/createBook" method="post" enctype="multipart/form-data">
     title<input type="text" name="title"><br>
     description<input type="text" name="description"><br>
     price<input type="text" name="price"><br>
@@ -18,7 +18,9 @@
         <% for (Author author : authors) { %>
         <option value="<%=author.getId()%>"><%=author.getName()%> <%=author.getSurname()%></option>
         <% }%>
-    </select>
+    </select><br>
+    image:
+    <input type="file"name="profilePic"><br>
     <input type="submit" value="Create">
 </form>
 </body>

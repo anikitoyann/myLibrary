@@ -13,12 +13,20 @@ import java.util.List;
 
 @WebServlet("/books")
 public class BookServlet extends HttpServlet {
-BookManager bookManager=new BookManager();
+    BookManager bookManager = new BookManager();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Book> books = bookManager.getAll();
-        req.setAttribute("books", books);
-        req.getRequestDispatcher("WEB-INF/book.jsp").forward(req,resp);
+        String keyword = req.getParameter("keyword");
+        List<Book> result = null;
+        if (keyword == null || keyword.equals("") ) {
+            result = bookManager.getAll();
+        } else {
+            result = bookManager.search(keyword);
+        }
+        req.setAttribute("books", result);
+        req.getRequestDispatcher("WEB-INF/book.jsp").forward(req, resp);
+
     }
 }
 
