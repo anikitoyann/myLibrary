@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebListener;
 import java.util.Date;
 
 @WebListener
-public class MyApplicationListener implements ServletContextListener {
+public class ServerLifecycleListenerr implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Server started at"+new Date());
@@ -14,6 +14,6 @@ public class MyApplicationListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Server stopped at"+new Date());
+        System.out.println("Server destroyed at"+new Date());
     }
 }

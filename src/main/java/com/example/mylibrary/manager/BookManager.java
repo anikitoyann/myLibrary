@@ -114,14 +114,15 @@ public class BookManager {
     }
 
         public void update(Book book) {
-        String sql = "UPDATE book SET title=?,description=?,price=?,author_id=?,user_id=? WHERE id=?";
+        String sql = "UPDATE book SET title=?,description=?,price=?,author_id=?,user_id=?,pic_name=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,book.getTitle());
             statement.setString(2, book.getDescription());
             statement.setInt(3,book.getPrice());
             statement.setInt(4,book.getAuthor().getId());
             statement.setInt(5,book.getUser().getId());
-            statement.setInt(6,book.getId());
+            statement.setString(6,book.getPicName());
+            statement.setInt(7,book.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

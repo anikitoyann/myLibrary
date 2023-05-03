@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import java.util.Date;
 
 @WebListener
-public class MySessionAttrubiteListener implements HttpSessionAttributeListener {
+public class UserLoginEventListener implements HttpSessionAttributeListener {
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         String id = event.getSession().getId();

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionListener;
 import java.util.Date;
 
 @WebListener
-public class MySessionListener implements HttpSessionListener {
+public class SessionLifecucleListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         String id = se.getSession().getId();

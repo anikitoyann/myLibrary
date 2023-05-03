@@ -12,7 +12,7 @@
 <% List<User> users = (List<User>) request.getAttribute("users");%>
 <a href="/">Back</a>
 <h2>Update Book</h2>
-<form action="/updateBook" method="post" >
+<form action="/updateBook" method="post" enctype="multipart/form-data" >
   <input name="id" type="hidden"value="<%=book.getId()%>">
   title<input  name="title" type="text" value="<%=book.getTitle()%>">
   description<input name="description" type="text" value="<%=book.getDescription()%>">
@@ -20,7 +20,7 @@
   author_id:
   <select name="author_id">
   <% for (Author author : authors) { %>
-  <option value="<%=author.getId()%>"><%=author.getName()%></option>
+  <option value="<%=author.getId()%>"><%=author.getName() %></option>
   <%}%>
 </select><br>
   user_id:
@@ -29,8 +29,8 @@
     <option value="<%=user.getId()%>"><%=user.getName()%> <%=user.getId()%>></option>
     <% }%>
   </select><br>
+  <input type="file"name="profilePic"><br>
   <input type="submit" value="Update">
 </form>
-
 </body>
 </html>
