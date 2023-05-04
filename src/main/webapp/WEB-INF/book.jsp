@@ -24,9 +24,9 @@
         <th>price</th>
         <th>author_id</th>
         <th>user_id</th>
-        <%if (user.getUserType() == UserType.ADMIN) {%>
+       <%-- <%if (user.getUserType() == UserType.ADMIN) {%>
         <th>action</th>
-        <%}%>
+        <%}%> --%>
     </tr>
     <% if (books != null && !books.isEmpty()) { %>
     <%
@@ -51,13 +51,13 @@
         </td>
         <th><%= (book.getUser() != null ) ? book.getUser().getId() : "" %>
         </th>
-            <%if (user.getUserType()== UserType.ADMIN){%>
+       <%--     <%if (user.getUserType()== UserType.ADMIN){%> --%>
         <td><a href="/removeBook?id=<%=book.getId()%>">delete</a>
             / <a href="/updateBook?id=<%=book.getId()%>">update</a></td>
-            <%} %>
+
             <%} %>
 
-            <% } else { %>
+    <% }  else   { %>
 
     <tr>
         <td colspan="7">No books found.</td>
