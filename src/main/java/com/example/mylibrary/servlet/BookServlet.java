@@ -1,6 +1,5 @@
 package com.example.mylibrary.servlet;
 
-import com.example.mylibrary.constants.SharedConstants;
 import com.example.mylibrary.manager.BookManager;
 import com.example.mylibrary.model.Book;
 import com.example.mylibrary.model.User;
@@ -11,15 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
 @WebServlet("/books")
 public class BookServlet extends HttpServlet {
     BookManager bookManager = new BookManager();
 
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         List<Book> result = null;
@@ -31,10 +28,11 @@ public class BookServlet extends HttpServlet {
                 result = bookManager.search(keyword);
             }
         } else if (user != null && user.getUserType() == UserType.USER) {
-          result = bookManager.getBooksByUser(user);
+            result = bookManager.getBooksByUser(user);
         }
         req.setAttribute("books", result);
         req.getRequestDispatcher("WEB-INF/book.jsp").forward(req, resp);
     }
 }
+
 
